@@ -1,0 +1,2 @@
+stability prediction for sequences and sequence selection algorithm training 
+By James

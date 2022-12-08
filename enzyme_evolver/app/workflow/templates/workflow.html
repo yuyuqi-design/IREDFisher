@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+    <style>
+    .tab_width {
+        max-width: 150px;
+        text-align: center;
+    }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-form my-5">
+                    <div class="card-body">
+                        <h6 class="text-center">{{name}}</h6>
+                        <ul class="nav nav-tabs" id="tab_list" role="tablist">
+                          <li class="nav-item tab_width">
+                            <a class="nav-link active" id="find_homologous" data-toggle="tab" href="#status" role="tab">
+                                1. Protein structure
+                            </a>
+                          </li>
+                          <li class="nav-item tab_width" disabled>
+                            <a class="nav-link disabled" id="paper_tab" data-toggle="tab" href="#paper" role="tab"
+                               aria-controls="paper" aria-selected="false">
+                                2. Substrate docking
+                            </a>
+                          </li>
+                          <li class="nav-item tab_width">
+                            <a class="nav-link disabled" id="sequences_tab" data-toggle="tab" href="#sequences" role="tab">
+                                3. Rational design
+                            </a>
+                          </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                          <div class="tab-pane fade show active" id="status" role="tabpanel" aria-labelledby="status_tab">
+
+                          </div>
+                          <div class="tab-pane fade" id="paper" role="tabpanel" aria-labelledby="paper_tab">
+
+                          </div>
+                          <div class="tab-pane fade" id="sequences" role="tabpanel" aria-labelledby="sequences_tab">
+                              <div class="container-fluid">
+
+                                <button id="add_enzyme_button" class="btn btn-success" data-toggle="modal" data-target="#add_new_enzyme_modal">Add Enzyme</button>
+                                <button class="btn btn-outline-primary" id="upload_seq_excel" data-toggle='modal' data-target='#upload_seq_excel_modal'>Upload Excel</button>
+                              </div>
+                          </div>
+                          <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity_tab">
+                              <div class="container-fluid">
+
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

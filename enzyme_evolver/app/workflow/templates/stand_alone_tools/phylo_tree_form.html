@@ -1,0 +1,58 @@
+{% extends "base_computhub.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+    <div class="container-fluid mt-5">
+        <h2 class="text-center">Phylogenetic Tree</h2>
+        <h6 class="text-center text-secondary">upload a sequence alignment file to start</h6>
+        <div class="row mt-3">
+            <div class="col"></div>
+            <div class="col">
+                <form method="POST" action="" novalidate enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="job_name" ><small>Job name</small></label>
+                        {{ form.job_name(class="form-control border border-secondary")}}
+                        {% for error in form.job_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                </br></br>
+                    <div class="form-group">
+                        <label for="selection" class="text-secondary text-justify text-info"><small><i>Please select the file you are using</i> </small></label>
+                        {{ form.selection(class="h6") }}
+                        {% for error in form.selection.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                         {% endfor %}
+                    </div>
+                    <div class="form-group">
+                         <label for="file" class="text-secondary text-justify text-info"><small><i>Please upload the file with <mark>.fasta</mark>format</i> </small></label>
+                         {{ form.file(class="btn btn-light btn-lg")}}
+
+                         {% for error in form.file.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                         {% endfor %}
+                    </div>
+
+                    <div class="custom-control custom-checkbox ">
+                        <label for="ancestral" class="text-secondary text-justify text-info"><small><i>Do you want to calculate ancestral sequences?</i> </small></label>
+                        {{ form.ancestral(class="custom-control-input")}}
+                        {% for error in form.ancestral.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                         {% endfor %}
+                        <br>
+                        <label class="custom-control-label" for="ancestral">ancestral</label>
+                    </div>
+                    <br><br> <br>
+                    <div class="form-group">
+                        {{ form.submit(class="btn-lg btn-block btn-success") }}
+                    </div>
+
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+{% endblock %}

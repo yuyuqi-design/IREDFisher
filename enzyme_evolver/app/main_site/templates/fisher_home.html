@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}IREDFisher - {% endblock %}
+{% block content %}
+
+
+<div class="row example mb-5" ></div>
+<br><br>
+<div class="row text-center"  >
+    <div style="width:1600px; margin:0 auto;">
+        <a href="{{ url_for('main_site.fisher_home') }}">
+            <image class="img-fluid center" src="{{ url_for('static', filename='images/IREDFisherslogan2.png')}}" />
+        </a>
+    </div>
+
+</div>
+<br>
+<p class="text-center font-italic" style="color:red;">*you need to login in to use the service</p>
+<div class="row example mb-5"></div>
+<br>
+
+
+<div class="container">
+    <div class="col ml-md-auto">
+
+        <p class=" text-justify"><b>IREDFisher</b> provides structural databases for imine reductase sequences.
+            It enables non-computational scientists' access to computational aid only by <b> one-click process</b>
+            and thus increase your screening efficiency of enzymes to produce desired products. </p>
+        <p></p>
+        <p>Any questions and advice would be welcomed!<br></p>
+        <br><br>
+        <p class="text-center"><a class=" btn btn-dark btn-lg" href="{{ url_for('workflow.screen_panel_des_form') }}" role="button">Start &raquo;</a></p>
+
+    </div>
+</div>
+
+<div class="row example mb-5"></div>
+<div class="fixed-bottom text-center text-light bg-dark">Email: yuqi.yu@manchester.ac.uk<br>Address: Manchester Institute of Biotechnology<br>The University of Manchester<br>131 Princess Street
+Manchester M1 7DN </div>
+{% endblock %}
+

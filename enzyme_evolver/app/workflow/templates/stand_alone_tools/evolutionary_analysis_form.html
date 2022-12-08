@@ -1,0 +1,53 @@
+{% extends "base_computhub.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+    <div class="container-fluid mt-5">
+        <h2 class="text-center">Homology Search</h2>
+        <h6 class="text-center text-secondary">Enter a protein sequence to start</h6>
+        <div class="row mt-3">
+            <div class="col"></div>
+            <div class="col">
+                <form method="POST" action="" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    <div class="form-group">
+                        <label for="protein_name" class="text-secondary"><small>Protein name</small></label>
+                        {{ form.protein_name(class="form-control")}}
+                        {% for error in form.protein_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="protein_seq" class="text-secondary"><small>Protein sequence</small></label>
+                        {{ form.protein_seq(class="form-control", rows="10")}}
+                        {% for error in form.protein_seq.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+
+<!--                    <div class="custom-control custom-checkbox">-->
+<!--                        {{ form.trim(class="custom-control-input")}}-->
+<!--                        <label class="custom-control-label" for="trim">Trim</label>-->
+<!--                        <small class="form-text text-muted">Trim sequence alignment by Gblocks</small>-->
+<!--                    </div>-->
+
+<!--                    <div class="custom-control custom-checkbox">-->
+<!--                        {{ form.ancestral(class="custom-control-input")}}-->
+<!--                        <label class="custom-control-label" for="ancestral">Ancestral</label>-->
+<!--                        <small class="form-text text-muted">infer ancestral sequences by raxml-ng</small>-->
+<!--                    </div>-->
+                    <br><br>
+                    <div class="form-group">
+                        {{ form.submit(class="btn-lg btn-block btn-success") }}
+                    </div>
+
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+{% endblock %}

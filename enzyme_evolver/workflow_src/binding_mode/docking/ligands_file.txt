@@ -1,0 +1,5 @@
+AMP-Benzoic_acid.pdb
+AMP-4-Acetylbenzoic-acid.pdb
+AMP-4-Aminomethylbenzoic_acid.pdb
+AMP-4-Formylbenzoic-acid.pdb
+AMP-4-N-Boc-aminomethylbenzoic-acid.pdb  

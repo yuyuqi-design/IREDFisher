@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% set active_page = "" %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-form my-5">
+                    <div class="card-body">
+                        <h3 class="card-title">{{title}}</h3>
+                        <div id="table"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var go_button = function(cell, formatterParams, onRendered){ //plain text value
+            var row_data = cell.getData()
+            var folder_id = row_data['folder_id']
+            var url = Flask.url_for("workflow.go_to_job", {"folder_id": folder_id})
+            return "<a href=" + url + " class='btn btn-sm btn-outline-info'>Go</a>";
+        };
+
+        var delete_button = function(cell, formatterParams, onRendered){ //plain text value
+            return "<button class='btn btn-sm btn-outline-danger'>Delete</button>";
+        };
+
+        var columns = [
+
+            {'title':"ID", 'field':"_id", visible:false, headerSort:false},
+
+            {'title':"Folder ID", 'field':"folder_id", visible:false, headerSort:false},
+
+            {'title':"Type", 'field':"type",  headerFilter:"input", formatter:"textarea"},
+
+            {'title':"Name", 'field':"name", headerFilter:"input", formatter:"textarea"},
+
+            {'title':"Status", 'field':"status", headerFilter:"input", formatter:"textarea"},
+
+            {'title': 'Go', formatter:go_button},
+
+            {'title': 'Delete', formatter:delete_button,
+                cellClick:function(e, cell){delete_other_job(cell.getRow().getData().folder_id)}},
+        ];
+
+        var table_data = {{jobs_data|safe}};
+
+        var table = new Tabulator("#table", {
+            data:table_data, //assign data to table
+            maxHeight:"75vh",
+            layout:"fitColumns",
+            addRowPos:"bottom",
+            columns:columns,
+            cellHozAlign:"center",
+            cellVertAlign:"middle",
+        });
+
+        function delete_other_job(folder_id) {
+            $.post('/_delete_other_job', {
+                folder_id: folder_id,
+
+                }).done(function(data) {
+                    location.reload()
+                })
+        }
+
+    </script>
+
+{% endblock %}

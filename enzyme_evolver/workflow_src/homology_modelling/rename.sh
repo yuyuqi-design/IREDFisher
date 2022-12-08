@@ -1,0 +1,1 @@
+ rename 's/.B9999.*.pdb/.pdb/' $1*B9999*pdb

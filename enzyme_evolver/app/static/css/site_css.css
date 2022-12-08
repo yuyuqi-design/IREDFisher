@@ -1,0 +1,40 @@
+body {
+  padding-top: 4rem;
+}
+
+.form-group input {
+  border-radius: 2rem;
+}
+
+.input-group input {
+  border-radius: 2rem;
+}
+
+.form-inline input {
+  border-radius: 2rem;
+}
+
+.card-form {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-form .card-title {
+  margin-bottom: 2rem;
+  font-weight: 300;
+  font-size: 2rem;
+}
+
+.card-form .card-body {
+  padding: 2rem;
+  }
+
+.label {
+    width: 240px;
+    display: inline-block
+}
+.jumbotron {
+        background-image:url('http://goo.gl/04j7Nn');
+        height: 500px;
+        }

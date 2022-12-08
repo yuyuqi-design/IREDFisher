@@ -1,0 +1,16 @@
+source oldff/leaprc.ff14SB
+source leaprc.gaff
+loadamberparams frcmod.ionsjc_tip3p
+loadamberparams frcmod.ions234lm_126_tip3p 
+#loadamberparams AMP.frcmod
+#AMP = loadmol2 AMP.mol2
+loadamberparams folderlig.frcmod
+ligname = loadmol2 folderlig.mol2
+model=loadpdb foldercomplex.pdb
+solvatebox model TIP3PBOX 10 iso
+addions model Cl- 0
+addions model Na+ 0
+setbox model vdw
+saveamberparm model foldercomplex.prmtop foldercomplex.inpcrd
+savepdb model foldercomplex_amber.pdb
+quit

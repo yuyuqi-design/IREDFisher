@@ -1,0 +1,208 @@
+{% extends "base_computhub.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+    <div class="container-fluid mt-5">
+        <h2 class="text-center">Molecular Docking</h2>
+        <h6 class="text-center text-secondary">Upload your files to start</h6>
+        <div class="row mt-3">
+            <div class="col"></div>
+            <div class="col text-align: center">
+                <form method="POST" action="" novalidate enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="text-center">
+                        <label for="job_name" ><small>Job name</small></label>
+                        {{ form.job_name(class="form-control")}}
+                        {% for error in form.job_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center">
+                      <label for="proteins" class="text-secondary"><small><i>upload .pdb <u><mark>protein</mark></u> files (max. 10)</i></small></label>
+                      {{ form.proteins(class="text-center btn btn-light btn-lg")}}
+                        {% for error in form.proteins.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                      <!-- Button trigger modal and Modal -->
+                      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter1">
+                          Tips
+                      </button>
+                      <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle1"><b>Protein Structure Guidance</b></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h6 class="text-left">
+                                    No solvent, water, metals in structures<br>
+                                    only <mark><i><u>pdb</u></i></mark>  format please!<br><br>
+                                    <a href="{{ url_for('workflow.protein_example') }}">
+                                        example
+                                    </a>
+                                </h6>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                     <div class="row example mb-4"></div>
+
+                      <div class="text-center">
+                        <label for="ligands" class="text-secondary"><small><i>upload .pdb <u><mark>ligands</mark></u> files (max. 10)</i></small></label>
+                          {{ form.ligands(class="text-center btn btn-light btn-lg")}}
+                          {% for error in form.ligands.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter2">
+                          Tips
+                        </button>
+                        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle2"><b>Ligand Structure Guidance</b></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h6 class="text-left">
+                                    No solvent, water, metals in structures.<br>
+                                    <i><u>cdx, smiles, sdf, mol2 and pdb</u></i> formats are supported!<br>
+                                    <small>one file only contains one ligand please!</small><br><br>
+                                    <a href="{{ url_for('workflow.ligand_example') }}">
+                                        example
+                                    </a>
+                                </h6>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="custom-control custom-checkbox ">
+                            <label class="text-secondary"><small>Preprocess 2D ligand molecules?</i></small></label>
+                            {{ form.add_h(class="custom-control-input")}}
+                            {% for error in form.add_h.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                            <br>
+                            <label class="custom-control-label " for="add_h"> <small>Add hydrogens</small></label>
+                        </div>
+                        <div class="custom-control custom-checkbox ">
+                            {{ form.gen_3D(class="custom-control-input")}}
+                            {% for error in form.gen_3D.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                            <label class="custom-control-label" for="gen_3D"><small>Generate 3D conformation</small></label>
+                        </div>
+                      </div>
+                    <div class="row example mb-4"></div>
+
+<!--                    advanced options-->
+                    <div class="text-center">
+                        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Advanced options</a>
+                    </div>
+                    <br>
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="text-center">
+                            <label for="ref_ligand" class="text-secondary"><small><i>upload a .pdb <u><mark>reference ligand </mark></u> file(optional but recommended)</i></small></label>
+                              {{ form.ref_ligand(class="text-center btn btn-light btn-lg")}}
+                                {% for error in form.ref_ligand.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter3">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle3" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle3">Reference ligand Structure Guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">To tell the active site location.
+                                        Be sure the ligand is located in the active site of your first uploaded protein structure.<br>
+                                        only <mark><i><u>pdb</u></i></mark>  format please!<br><br>
+                                        <a href="{{ url_for('workflow.reflig_example') }}">
+                                            example
+                                        </a>
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row example mb-4"></div>
+                        <div class="text-center">
+                            <label for="cof" class="text-secondary"><small><i>upload a .pdb <u><mark>reference cofactor </mark></u> file(optional)</i></small></label>
+                              {{ form.cof(class="text-center btn btn-light btn-lg")}}
+                                {% for error in form.cof.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter4">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle4">Cofactor Structure Guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">To tell the cofactor binding location.
+                                        Be sure the ligand is located in the cofactor binding site of your first uploaded protein structure.<br>
+                                        only <mark><i><u>pdb</u></i></mark>  format please!<br><br>
+                                        <a href="{{ url_for('workflow.refcof_example') }}">
+                                            example
+                                        </a>
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label for="Rg" class="text-secondary border-secondary">Docking box size&nbsp;</label>
+                            {{ form.Rg(class="form-control-sm border-secondary")}}
+                            {% for error in form.Rg.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row example mb-5"></div>
+                    <div class="form-group">
+                    {{ form.submit(class="btn-lg btn-block btn-success") }}
+                    </div>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

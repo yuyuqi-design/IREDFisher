@@ -1,0 +1,127 @@
+{% extends "base_Sigfinder.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+
+    <div class="container-fluid mt-5">
+
+
+        <h2 class="text-center">
+            <a class="p-2 text-dark" href="{{ url_for('main_site.Sigfinder_home') }}">
+            <image src="{{ url_for('static', filename='images/signature_logo2.png')}}">
+            </a>SignatureFinder</h2>
+        <h6 class="text-center text-secondary">Give sequences and a complex structure to start</h6>
+        <div class="row example mb-4"></div>
+        <div class="row example mb-4"></div>
+        <div class="container-xl">
+<!--            <div class="col"></div>-->
+            <div class="col text-center">
+                <form method="POST" action="" novalidate enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="text-center">
+                        <label for="job_name" class="text-secondary border-secondary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Job name&nbsp;</label>
+                        {{ form.job_name(class="form-control-sm border-secondary")}}
+                        {% for error in form.job_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="row example mb-4"></div>
+                    <div class="row example mb-4"></div>
+
+                    <div class="container ">
+                        <div class="text-center">
+                        <label for="panel_sequences" class="text-secondary"><small><i>
+                            upload .fasta <u><mark>sequence</mark></u> files and put your reference sequence as the first protein
+                            </br>
+                            at least four sequences required!
+                            </i></small>
+                        </label>
+                          <br>
+                          {{ form.panel_sequences(class="text-center btn btn-light btn-lg")}}
+                          {% for error in form.panel_sequences.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                          {% endfor %}
+
+                      </div>
+                        <br>
+                      <div class="text-center">
+                        <label for="complex" class="text-secondary"><small><i>
+                            upload a .pdb  file<u><mark> of the interested ligand sitting in the active site of protein</mark></u>
+                            <br>
+                            </i></small>
+                        </label>
+                          <br>
+                          {{ form.complex(class="text-center btn btn-light btn-lg")}}
+                          {% for error in form.complex.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                          <!--Tips start-->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter0">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter0" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle0" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Complex structure guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">
+                                        there  should be only one ligand in the structure.<br>
+                                        ligand atoms start with HETATM and protein atoms start with ATOM<br>
+                                        <p></p>
+                                        HETATM    1  C1  B12 D 300      40.633  83.664  42.554  1.00 37.35 <br>
+                                        HETATM    2  C2  B12 D 300      39.079  83.666  42.853  1.00 46.56 <br>
+                                        ATOM     83  N   VAL B 210      39.044  71.935  59.119  1.00 30.93 <br>
+                                        ATOM     84  CA  VAL B 210      38.058  72.632  58.262  1.00 30.93 <br>
+                                        ATOM     85  C   VAL B 210      38.108  74.101  58.511  1.00 30.93 <br>
+                                        </a>
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Tips end-->
+                      </div>
+                        <br><br>
+                    <div class="text-center">
+                        <label for="Rg" class="text-secondary border-secondary"><i>specify the <mark>size of the docking box</mark>: how many folds of its gyration radius&nbsp;</i></label>
+                        <br>
+                        {{ form.Rg(class="form-control-sm border-secondary")}}
+                        {% for error in form.Rg.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="text-center">
+                        <label for="RMSD" class="text-secondary border-secondary"><i>Structural <mark>RMSD threshold</mark> for classifying the sequences as the same cluster with your reference protein&nbsp;<i></label><br>
+                    {{ form.RMSD(class="form-control-sm border-secondary")}}
+                    {% for error in form.RMSD.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    </div>
+
+                    <div class="row example mb-4"></div>
+
+                    <div class="row example mb-1"></div>
+                    <div class="row example mb-4"></div>
+                    <div class="form-group">
+                    {{ form.submit(class="btn-lg btn-block btn-success") }}
+                    </div>
+                </form>
+            </div>
+<!--            <div class="col"></div>-->
+        </div>
+    </div>
+
+
+
+{% endblock %}

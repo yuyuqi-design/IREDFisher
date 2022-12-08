@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+
+    <div class="container-fluid mt-5">
+
+
+        <h2 class="text-center">
+            <a class="p-2 text-dark" href="{{ url_for('main_site.fisher_home') }}">
+            <image src="{{ url_for('static', filename='images/IREDFisher6.png')}}">
+            </a>IREDFisher</h2>
+        <h6 class="text-center text-secondary">Give you substrates structure to start</h6>
+        <div class="row example mb-4"></div>
+        <div class="row example mb-4"></div>
+        <div class="container-xl">
+<!--            <div class="col"></div>-->
+            <div class="col text-center">
+                <form method="POST" action="" novalidate enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="text-center">
+                        <label for="job_name" class="text-secondary border-secondary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Job name&nbsp;</label>
+                        {{ form.job_name(class="form-control-sm border-secondary")}}
+                        {% for error in form.job_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="row example mb-4"></div>
+                    <div class="row example mb-4"></div>
+                    <div class="form-group text-center">
+                        <ul class="nav nav-tabs">
+                            <li>
+                                <a href="#In-house_panel_optimization" class="nav-link active" role="tab" data-toggle="tab">Optimize in-house panel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#Screened_database" class="nav-link " role="tab" data-toggle="tab">Fish from Screened database</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#Public_database" class="nav-link" role="tab" data-toggle="tab">Fish from Public database</a>
+                            </li>
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane" id="Screened_database">
+                                <div class="text-center" >
+                                    <div class="custom-control custom-checkbox">
+                                    {{ form.check_screened(class="custom-control-input")}}
+                                        <label class="custom-control-label" for="check_screened" style="color:coral;">Screened database</label>
+                                    <br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="Public_database">
+                                <div class="text-center" >
+                                    <div class="custom-control custom-checkbox">
+                                    {{ form.check_public(class="custom-control-input")}}
+                                        <label class="custom-control-label" for="check_public" style="color:coral;">Public database</label>
+                                    <br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane  active " id="In-house_panel_optimization">
+                                <br>
+                                <div class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                    {{ form.check_inhouse(class="custom-control-input")}}
+                                    <label class="custom-control-label" for="check_inhouse" style="color:coral;">Panel optimization</label>
+                                    </div>
+                                    <br><br>
+                                    <label for="panel_sequences" class="text-secondary"><small><i>upload a .fasta sequence file</i></small></label>
+                                    <br>
+                                    {{ form.panel_sequences(class="text-center btn btn-light btn-lg")}}
+                                    {% for error in form.panel_sequences.errors %}
+                                        <span style="color: red;">[{{ error }}]</span>
+                                    {% endfor %}
+                                    <!--Tips start-->
+                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter0">
+                                      Tips
+                                    </button>
+                                    <div class="modal fade" id="exampleModalCenter0" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle0" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle0">Panel Sequence Guidance</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p class="text-left">
+                                                To rank your sequences based on the predicted binding affinity of specific ligands. <br><br>
+                                                Only letters, numbers and underscores are accepted in header of fasta format.<br>
+                                                For example: ">tr|Q8DLC1|Q8DLC1_THEEB NADPH-protochlorophyllide" is <b>not</b> accepted, <br>
+                                                it should be trimmed as ">tr_Q8DLC1"<br><br>
+                                                <i><u>fasta</u></i> format only!<br><br>
+                                                <a href="{{ url_for('workflow.panel_sequence_example') }}">
+                                                    example panel sequence file
+                                                </a>
+                                            </p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--Tips end-->
+                                    <br><br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container ">
+                      <div class="text-center">
+                        <label for="ligands" class="text-secondary"><small><i>
+                            upload .pdb <u><mark>ligand</mark></u> files
+                            </br>
+                            For how to prepare the ligand file and get N index, please find instructions <a href="https://github.com/yuyuqi-design/IREDFisher#input-file-preparation"> here </a>
+                            </br>You must follow the instructions to get it properly running!
+                            </i></small>
+                        </label>
+                          <br>
+                          {{ form.ligands(class="text-center btn btn-light btn-lg")}}
+                          {% for error in form.ligands.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                          <!--Tips start-->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter2">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle2">Ligand Structure Guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left" >
+                                        A structure with mol2 or pdb format saved from
+                                        <a href="https://marvinjs-demo.chemaxon.com/latest/demo.html">Marvin JS drawer</a>
+                                        </br>
+                                        <small>Note: one file only contains one ligand please!</small><br><br>
+
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Tips end-->
+                      </div>
+                        <br><br>
+                    <div class="text-center">
+                        <label for="N_index" class="text-secondary border-secondary">imine N atom index&nbsp;</label>
+                        {{ form.N_index(class="form-control-sm border-secondary")}}
+                        {% for error in form.N_index.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="row example mb-4"></div>
+
+                    <div class="row example mb-1"></div>
+                    <div class="row example mb-4"></div>
+                    <div class="form-group">
+                    {{ form.submit(class="btn-lg btn-block btn-success") }}
+                    </div>
+                </form>
+            </div>
+<!--            <div class="col"></div>-->
+        </div>
+    </div>
+
+
+
+{% endblock %}

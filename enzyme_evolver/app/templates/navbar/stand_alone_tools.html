@@ -1,0 +1,13 @@
+<li id='stand_alone_tools' class="nav-item dropdown">
+    <a class="dropdown-toggle h5 p-2 text-dark" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false">Stand-alone tools</a>
+    <div class="dropdown-menu " aria-labelledby="dropdown01">
+        <a class="dropdown-item" href="{{ url_for('workflow.evolutionary_analysis_form') }}">Homology Search</a>
+        <a class="dropdown-item" href="{{ url_for('workflow.phylo_tree_form') }}">Phylogenetic Tree</a>
+        <a class="dropdown-item" href="{{ url_for('workflow.homo_model_form') }}">Structure Modelling</a>
+        <a class="dropdown-item" href="{{ url_for('workflow.docking_form') }}">Molecular Docking</a>
+        <a class="dropdown-item" href="{{ url_for('workflow.md_form') }}">MD Preparation</a>
+<!--        <a class="dropdown-item" href="{{ url_for('workflow.Job_status') }}">My stand-alone jobs</a>-->
+
+    </div>
+</li>

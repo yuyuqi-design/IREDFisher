@@ -1,0 +1,58 @@
+<nav class="navbar navbar-light bg-light navbar-expand-md fixed-top border-bottom shadow-sm p-3 px-md-4 mb-3">
+
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#main_navbar"
+            aria-controls="main_navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse justify-content-center " id="main_navbar">
+        <div class="container position-absolute top-0 start-50 translate-middle">
+            <ul class="navbar-nav justify-content-center">
+    <!--            <li id='start' class="nav-item">-->
+    <!--                <a class="p-2 text-dark" href="{{ url_for('main_site.tutorials') }}">Tutorials</a>-->
+    <!--            </li>-->
+    <!--            <li id='start' class="nav-item">-->
+    <!--                <a class="p-2 text-dark" href="{{ url_for('main_site.fisher_home') }}">-->
+    <!--                <image  class="image-fluid center" src="{{ url_for('static', filename='images/IREDFisherlogo3.png')}}">-->
+    <!--                </a>-->
+    <!--            </li>-->
+                <li id='start' class="nav-item h4 ml-5 mr-5" >
+                    <a class="p-2 text-dark" href="{{ url_for('main_site.computhub_home') }} ">Home</a>
+                </li>
+<!--                <li id='start' class="nav-item h4 ml-4 mr-5">-->
+<!--                    <a class="p-2 text-dark" href="{{ url_for('workflow.screen_panel_des_form') }}"><b>Run!</b></a>-->
+<!--                </li>-->
+                {% include 'navbar/stand_alone_tools.html' %}
+
+
+                <li id='start' class="nav-item h4 ml-4 mr-5">
+                    <a class="p-2 text-dark" href="{{ url_for('workflow.Job_status_computhub') }}">Job status</a>
+                </li>
+                <li id='start' class="nav-item h4 ml-4 mr-5">
+                    <a class="p-2 text-dark" href="{{ url_for('main_site.contact_computhub') }}">Contact</a>
+                </li>
+
+<!--                {% include 'navbar/workflow_tools.html'%}-->
+
+            </ul>
+        </div>
+        <div class="container-fluid ">
+            <ul class="navbar-nav ml-auto mr-2">
+                {% if current_user.is_anonymous %}
+                    <li id='pathway_explorer' class="nav-item  h4 ml-auto mr-2">
+                        <a class="btn btn-outline-primary" href="{{ url_for_security('login') }}">Login/Register</a>
+                    </li>
+                {% else %}
+                    {% include 'navbar/logged_in_menu.html' %}
+                {% endif %}
+            </ul>
+        </div>
+
+
+    </div>
+</nav>
+
+
+
+
+

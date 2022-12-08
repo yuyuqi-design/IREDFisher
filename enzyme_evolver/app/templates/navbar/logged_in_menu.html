@@ -1,0 +1,10 @@
+<li id='logged_in_menu' class="nav-item dropdown ml-auto">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My account</a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+        {% if login_mode == True %}
+            <a class="dropdown-item" href="{{ url_for_security('change_password') }}"> Change password </a>
+        {% endif %}
+        <a class="dropdown-item" href="/logout"> Logout </a>
+    </div>
+</li>
+

@@ -1,0 +1,3 @@
+https://enzymeevolver.duckdns.org {
+    reverse_proxy ee_app:5000
+    }

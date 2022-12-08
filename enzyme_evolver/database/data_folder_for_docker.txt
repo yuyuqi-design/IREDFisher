@@ -1,0 +1,14 @@
+##Everything you downloaded from https://figshare.com/articles/dataset/IREDFisher_database_zip/14502174 and decompress them.
+##prepared Public IRED structural database. Download and decompress.
+Public/
+##prepared Screened IRED structural database. Download and decompress
+Screened/
+
+taxoNCBI.csv 
+pdb_95.pir
+complex.fasta
+complex.pdb
+dimerT.pdb
+singleT.pdb
+lig_ref.pdb
+cof_ref.pdb

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}EnzymeFisher - {% endblock %}
+{% block content %}
+<div class="row example mb-3" ></div>
+<br><br><br>
+<h4 class="text-center">Tutorials</h4>
+<br><br>
+
+<div style="text-align: center">
+    <a href="{{ url_for('main_site.tutorial_files') }}" >
+    <p>download tutorial input and output files here</p>
+    </a>
+    <a href="{{url_for('main_site.mannual')}}">
+        <p>download the mannual document here</p>
+    </a>
+    <p> <i>*If you have any questions, please contact <u>yuqi.yu@manchester.ac.uk</u></i></p>
+</div>
+
+
+
+
+{% endblock %}

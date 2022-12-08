@@ -1,0 +1,123 @@
+{% extends "base_computhub.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+    <div class="container-fluid mt-5">
+        <h2 class="text-center">MD Preparation</h2>
+        <h6 class="text-center text-secondary">Upload your files to start</h6>
+        <div class="row mt-3">
+            <div class="col"></div>
+            <div class="col text-align: center">
+                <form method="POST" action="" novalidate enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="text-center">
+                        <label for="job_name" ><small>Job name</small></label>
+                        {{ form.job_name(class="form-control")}}
+                        {% for error in form.job_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <label for="job_detail" class="text-secondary text-justify text-info"><small><i>Please upload a detail file for this preparation job</i></small></label>
+                         {{ form.job_detail(class="btn btn-light btn-lg")}}
+
+                         {% for error in form.job_detail.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                         {% endfor %}
+                    </div>
+                    <div class="text-center">
+                      <label for="proteins" class="text-secondary"><small><i>upload .pdb <u><mark>protein</mark></u> files (max. 10)</i></small></label>
+                      {{ form.proteins(class="text-center btn btn-light btn-lg")}}
+                        {% for error in form.proteins.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                      <!-- Button trigger modal and Modal -->
+                      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter1">
+                          Tips
+                      </button>
+                      <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle1"><b>Protein Structure Guidance</b></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h6 class="text-left">
+                                    No solvent, water, metals in structures<br>
+                                    only <mark><i><u>pdb</u></i></mark>  format please!<br><br>
+                                    <a href="{{ url_for('workflow.protein_example') }}">
+                                        example
+                                    </a>
+                                </h6>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                     <div class="row example mb-4"></div>
+
+                      <div class="text-center">
+                        <label for="ligands" class="text-secondary"><small><i>upload .pdb <u><mark>ligands</mark></u> files (max. 10)</i></small></label>
+                          {{ form.ligands(class="text-center btn btn-light btn-lg")}}
+                          {% for error in form.ligands.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter2">
+                          Tips
+                        </button>
+                        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle2"><b>Ligand Structure Guidance</b></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h6 class="text-left">
+                                    No solvent, water, metals in structures.<br>
+                                    <i><u>cdx, smiles, sdf, mol2 and pdb</u></i> formats are supported!<br>
+                                    <small>one file only contains one ligand please!</small><br><br>
+                                    <a href="{{ url_for('workflow.ligand_example') }}">
+                                        example
+                                    </a>
+                                </h6>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="row example mb-4"></div>
+
+<!--                    advanced options-->
+<!--                    <div class="text-center">-->
+<!--                        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Advanced options</a>-->
+<!--                    </div>-->
+                    <br>
+                    <div class="row example mb-5"></div>
+                    <div class="form-group">
+                    {{ form.submit(class="btn-lg btn-block btn-success") }}
+                    </div>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

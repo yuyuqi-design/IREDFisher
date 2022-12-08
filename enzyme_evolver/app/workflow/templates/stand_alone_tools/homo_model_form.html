@@ -1,0 +1,368 @@
+{% extends "base_computhub.html" %}
+{% set active_page = "" %}
+
+{% block content %}
+
+    <div class="container-fluid mt-5">
+        <h2 class="text-center">Structure Modelling</h2>
+        <h6 class="text-center text-secondary">Enter sequences in fasta format</h6>
+        <div class="row mt-3">
+            <div class="col"></div>
+            <div class="col">
+                <form method="POST" action="" novalidate enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="form-group">
+                        <label for="job_name" ><small>Job name</small></label>
+                        {{ form.job_name(class="form-control border border-secondary")}}
+                        {% for error in form.job_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fasta" ><small>Sequences (*fasta format)</small></label>
+                        {{ form.fasta(class="form-control border border-secondary", rows="6",placeholder=">fasta1\nMMMMAAA\n>fasta2\nNNNCCC")}}
+                        {% for error in form.fasta.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                            <!--Tips start-->
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter1">
+                          Tips
+                        </button>
+                        <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle1">Sequence Guidance</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <p class="text-left"> Only letters, numbers and underscores are accepted in header of fasta format.<br>
+                                    For example: ">tr|Q8DLC1|Q8DLC1_THEEB NADPH-protochlorophyllide" is <b>not</b> accepted, <br>
+                                    it should be trimmed as ">tr_Q8DLC1"<br><br>
+
+                                    Example sequence input:<br>
+                                    >POR1<br>
+                                    MSDQPRPTVIITGASSGVGLYATKALANRGWHVIMACRNLEKA
+                                    EQAAKNLQIPPEAYTILHLDL SSLASVRGFVESFRALNRPLR
+                                    ALVCNAAVYYPLLKEPIYSVDGYEITVATNHLGHF LLINLLL
+                                    EDLKNSPESDKRLVILGTVTANRKELGGKIPIPAPPDLGNLEG
+                                    FEKGFKKPIAMINGKPFKSGKAYKDSKLCNMLTARELHRRFHE
+                                    STGIVFNSLYPGCVADTPLFRHHFPLFQKLFPLFQKKITGGYV
+                                    SQELAGERVAMVVADPEFRQSGVHWSWGNRQKEGRKAFVQELS
+                                    AEASDEQKARRLWELSEKLVGLA
+                                </p>
+                                <p>
+                                    >POR2<br>
+                                    MRTTAQPTALITGASSGVGLWTAQALVARGWQVIMACRDLAKAQ
+                                    DAASAVGIAPGNCTLMHLDLADFDSVRALAIAAREHLRARGGAL
+                                    DALVLNAAVYLPRVAAPLRNPDGFELSVATNYLGHFLLANLLLP
+                                    DLQAAPAP RLVALGTVTANSEEFGGRVPIPAPADLGDFEGLEA
+                                    GFRAPIAMIDGKPFKPGKAYKDSKLALMMMSRELH ARFHAATG
+                                    IVFATVYPGCVADTPLFRHAPRAFQAIFPWFQKNITKGYVSQPL
+                                    SGERVAQVVADPAFTASGVHWSWGNRQKPGAKAFAQPLSAKAEN
+                                    QRRAARLWDLSAALVGLAQPAHREPA
+                                <br><br>
+                                </p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Tips end-->
+                    </div>
+
+
+
+<!--                    Advanced options-->
+<!--                    Collaps-->
+                    <div class="text-center">
+                        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Advanced options</a>
+                    </div>
+                    <br>
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <small style="color: red;"><i>*You can only have one option</i></small>
+<!--                    option 1: auto multiple template(3 tempates are used) modelling-->
+                        <div class="container border border-secondary">
+                            <div class="custom-control custom-checkbox" >
+                                {{ form.check_auto_multiple(class="custom-control-input")}}
+                                <label class="custom-control-label" for="check_auto_multiple">multiple template modelling (slow)</label>
+                                    <!--Tips start-->
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter2">
+                                  Tips
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle2">Option guidance</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p class="text-left">
+                                            Multiple templates are used to build structures(slow).
+                                        </p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--Tips end-->
+                            </div>
+                        </div>
+                        <br>
+
+    <!--                    option 2: use user's template structure-->
+                        <div class="container border border-secondary">
+                         <div class="custom-control custom-checkbox">
+                            {{ form.check_template(class="custom-control-input")}}
+                            <label class="custom-control-label" for="check_template">use your own template structure (fast)</label>
+                         </div>
+                         <div class="form-group">
+                             {{ form.template_single(class="text-center btn btn-light")}}
+                            <label for="template_single" class="text-secondary"><small><i>template structure with <mark>chain 'A'</mark></i></small></label>
+
+                              {% for error in form.template_single.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                              <!--Tips start-->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter3">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle3" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle3">Template structure guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">
+                                        The template structure should have chain labelled as 'A'<br><br>
+                                        ATOM      1  N   PRO <mark><b>A</b></mark>   5      -9.767 112.437 137.234  1.00 57.19<br>
+                                        ATOM      2  CA  PRO <mark><b>A</b></mark>   5     -10.572 112.147 138.431  1.00 59.76<br>
+                                        ATOM      3  C   PRO <mark><b>A</b></mark>   5     -12.074 112.060 138.113  1.00 57.16<br>
+                                        ATOM      4  O   PRO <mark><b>A</b></mark>   5     -12.664 113.049 137.671  1.00 53.61<br>
+                                                                              ......   <br>  <br>
+                                        only <mark><i><u>pdb</u></i></mark>  format please!<br><br>
+
+                                        <a href="{{ url_for('workflow.template_example') }}">
+                                            example
+                                        </a>
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Tips end-->
+                         </div>
+                        </div>
+                        <br>
+    <!--                    option3: Homodimer modelling-->
+                        <div class="container border border-secondary">
+                         <div class="custom-control custom-checkbox">
+                            {{ form.check_homodimer(class="custom-control-input")}}
+                            <label class="custom-control-label" for="check_homodimer">homodimer modelling</label>
+                         </div>
+                         <div class="form-group">
+                             {{ form.dimeT(class="text-center btn btn-light")}}
+                            <label for="dimeT" class="text-secondary"><small><i>dimer template with <mark>chain 'A' and 'B'</mark></i></small></label>
+                              {% for error in form.dimeT.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                             <!--Tips start-->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter4">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle4">Dimer template structure guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">The dimer structure should have chain labelled as 'A' and 'B'<br><br>
+                                        ATOM      1  N   PRO <mark><b>A</b></mark>   5      -9.767 112.437 137.234  1.00 57.19<br>
+                                        ATOM      2  CA  PRO <mark><b>A</b></mark>   5     -10.572 112.147 138.431  1.00 59.76<br>
+                                        ATOM      3  C   PRO <mark><b>A</b></mark>   5     -12.074 112.060 138.113  1.00 57.16<br>
+                                        ATOM      4  O   PRO <mark><b>A</b></mark>   5     -12.664 113.049 137.671  1.00 53.61<br>
+                                                                              ......  <br>
+                                        ATOM      100  O SER <mark><b>B</b></mark>   70     -12.664 113.049 137.671  1.00 53.61<br>
+                                        ATOM      101  CA  SER <mark><b>B</b></mark>   70     -10.572 112.147 138.431  1.00 59.76<br>
+                                        ATOM      102  C   SER <mark><b>B</b></mark>   70     -12.074 112.060 138.113  1.00 57.16<br>
+                                        <br>  <br>
+                                        only <mark><i><u>pdb</u></i></mark>  format please!<br><br>
+
+                                        <a href="{{ url_for('workflow.dimerT_example') }}">
+                                            example
+                                        </a>
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Tips end-->
+                         </div>
+                        <div class="form-group">
+                            {{ form.singleT(class="text-center btn btn-light")}}
+                            <label for="singleT" class="text-secondary"><small><i> monomer template with <mark>chain 'A'</mark></i></small></label>
+                              {% for error in form.singleT.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                                 <!--Tips start-->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter5">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle5" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle5">Monomer template structure guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">The monomer structure should have chain labelled as 'A'<br><br>
+                                        ATOM      1  N   LYS <mark><b>A</b></mark>   9      19.214 -13.342 231.723  1.00  0.83           <br>
+                                        ATOM      2  CA  LYS <mark><b>A</b></mark>   9      18.065 -14.258 232.060  1.00  0.83           <br>
+                                        ATOM      3  C   LYS <mark><b>A</b></mark>   9      16.924 -13.618 232.829  1.00  0.83           <br>
+                                        ATOM      4  O   LYS <mark><b>A</b></mark>   9      15.780 -14.009 232.648  1.00  0.83           <br>
+                                                                              ......  <br>
+                                        ATOM   2076  NH2 ARG <mark><b>A</b></mark> 294     -12.720 -13.307 255.125  1.00  0.57           <br>
+                                        ATOM   2077  OXT ARG <mark><b>A</b></mark> 294     -18.845 -11.314 258.451  1.00  0.57           <br>
+                                        END
+                                        <br>  <br>
+                                        only <mark><i><u>pdb</u></i></mark>  format please!<br><br>
+
+                                        <a href="{{ url_for('workflow.singleT_example') }}">
+                                            example
+                                        </a>
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Tips end-->
+                         </div>
+                        <div class="form-group">
+                            <label for="start_residue" class="text-secondary"><small>starting residue number</small></label>
+                            {{ form.start_residue(class="form-control-sm")}}
+                            {% for error in form.start_residue.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                             <!--Tips start-->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter6">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle6" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle6">Residue number guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">
+                                        To tell the starting residue number in your monomer template structure.<br><br>
+                                        The following structure's starting residue number is <b>9.</b><br><br>
+                                        ATOM      1  N   LYS A   <mark><b>9</b></mark>      19.214 -13.342 231.723  1.00  0.83           <br>
+                                        ATOM      2  CA  LYS A   <mark><b>9</b></mark>      18.065 -14.258 232.060  1.00  0.83           <br>
+                                        ATOM      3  C   LYS A   <mark><b>9</b></mark>      16.924 -13.618 232.829  1.00  0.83           <br>
+                                        ATOM      4  O   LYS A   <mark><b>9</b></mark>      15.780 -14.009 232.648  1.00  0.83           <br>
+                                                                              ......  <br>
+                                        ATOM   2076  NH2 ARG A <mark><b>294</b></mark>     -12.720 -13.307 255.125  1.00  0.57           <br>
+                                        ATOM   2077  OXT ARG A <mark><b>294</b></mark>     -18.845 -11.314 258.451  1.00  0.57           <br>
+                                        END
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Tips end-->
+                        </div>
+                        <div class="form-group">
+                            <label for="end_residue" class="text-secondary"><small>ending residue number</small></label>
+                            {{ form.end_residue(class="form-control-sm")}}
+                            {% for error in form.end_residue.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                                 <!--Tips start-->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter7">
+                              Tips
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter7" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle7" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle7">Residue number guidance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="text-left">
+                                        To tell the ending residue number in your monomer template structure.<br><br>
+                                        The following structure's ending residue number is <b>294.</b><br><br>
+                                        ATOM      1  N   LYS A   <mark><b>9</b></mark>      19.214 -13.342 231.723  1.00  0.83           <br>
+                                        ATOM      2  CA  LYS A   <mark><b>9</b></mark>      18.065 -14.258 232.060  1.00  0.83           <br>
+                                        ATOM      3  C   LYS A   <mark><b>9</b></mark>      16.924 -13.618 232.829  1.00  0.83           <br>
+                                        ATOM      4  O   LYS A   <mark><b>9</b></mark>      15.780 -14.009 232.648  1.00  0.83           <br>
+                                                                              ......  <br>
+                                        ATOM   2076  NH2 ARG A <mark><b>294</b></mark>     -12.720 -13.307 255.125  1.00  0.57           <br>
+                                        ATOM   2077  OXT ARG A <mark><b>294</b></mark>     -18.845 -11.314 258.451  1.00  0.57           <br>
+                                        END
+                                    </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Tips end-->
+                        </div>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <div class="form-group">
+                        {{ form.submit(class="btn-lg btn-block btn-success") }}
+                    </div>
+
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+{% endblock %}

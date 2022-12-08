@@ -1,0 +1,4 @@
+Accession,Description,Organism,E-value,Identity
+Q6RKB1, RecName: Full=Carboxylic acid reductase; Short=CAR; AltName: Full=ATP/NADPH-dependent carboxylic acid reductase; AltName: Full=Aryl aldehyde oxidoreductase ,Nocardia_iowensis,0.0,1.0
+B2HN69, RecName: Full=Carboxylic acid reductase; Short=CAR; AltName: Full=ATP/NADPH-dependent carboxylic acid reductase; AltName: Full=Fatty acid reductase ,Mycobacterium_marinum_M,0.0,0.5833333333333334
+Q8LPS1," RecName: Full=Long chain acyl-CoA synthetase 6, peroxisomal; Flags: Precursor ",Arabidopsis_thaliana,1.32535e-53,0.30406852248394006
